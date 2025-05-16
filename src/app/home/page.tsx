@@ -3,7 +3,7 @@ import Card from '@/components/Card';
 import React, { useState } from "react";
 import MealModal from "@/components/MealModal";
 
-export const meals = [
+const meals = [
   {
     id: 1,
     title: "Zucchini Noodles with Pesto",
