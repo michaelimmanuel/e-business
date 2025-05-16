@@ -29,11 +29,10 @@ const Card = ({ meal, onClick }: MealCardProps) => {
         onClick={handleClick}
         >
         <div className="relative aspect-[16/9] w-full">
-            <Image
+            <img
             src={image}
             alt={title}
-            fill
-            className="object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             />
         </div>
         <div className="p-4">

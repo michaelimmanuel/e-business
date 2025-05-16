@@ -11,7 +11,7 @@ const page = () => {
   return (
     <div>
         <div className='relative w-full max-w-xl aspect-[16/9]'>
-            <Image
+            <img
                 src="/images/login-hero.png"
                 alt="Login"
                 width={500}

@@ -49,12 +49,11 @@ const MealModal = ({ meal, onClose }: MealModalProps) => {
         <div className="fixed inset-0 bg-white bg-opacity-80 z-50 flex flex-col items-center">
         <div className="w-full max-w-md">
             <div className="relative aspect-square w-full rounded-lg overflow-hidden z-3">
-            <Image
-                src={meal.image}
-                alt={meal.title}
-                fill
-                className="object-cover object-center"
-            />
+                <img
+                    src={meal.image}
+                    alt={meal.title}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                />
             </div>
 
             <div className="relative -mt-20 z-10 px-4 h-full bg-white rounded-3xl pt-1">
