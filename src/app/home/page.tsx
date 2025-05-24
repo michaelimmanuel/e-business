@@ -2,6 +2,7 @@
 import Card from '@/components/Card';
 import React, { useState } from "react";
 import MealModal from "@/components/MealModal";
+import CartModal from "@/components/CartModal";
 
 const meals = [
   {
@@ -76,9 +77,12 @@ const categories = ["All", "Low Carb", "Vegetarian", "High Protein"];
 
 
 const page = () => {
-    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [selectedMeal, setSelectedMeal] = useState<typeof meals[number] | null>(null);
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [cart, setCart] = useState<any>([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
+    console.log(cart);
 
     const filteredMeals =
     selectedCategory === "All"
@@ -93,6 +97,20 @@ const page = () => {
         setSelectedMeal(null);
     };
 
+    const handleAddToCart = (meal: any, quantity: number) => {
+      setCart((prev: any[]) => {
+        const existing = prev.find((item) => item.meal.id === meal.id);
+        if (existing) {
+        return prev.map((item) =>
+          item.meal.id === meal.id
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+        );
+        }
+        return [...prev, { meal, quantity }];
+      });
+        setSelectedMeal(null);
+    };
 
     return (
         <div className='pt-4'>
@@ -118,7 +136,28 @@ const page = () => {
             ))}
                     
             </div>
-            <MealModal meal={selectedMeal} onClose={handleCloseModal} />
+            <MealModal 
+              meal={selectedMeal} 
+              onClose={handleCloseModal}
+              onAddToCart={handleAddToCart}
+            />
+            {isCartOpen && (
+              <CartModal
+                cart={cart}
+                onClose={() => setIsCartOpen(false)}
+                onUpdateCart={setCart}
+              />
+            )}
+            {cart.length > 0 && (
+                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-full flex justify-center px-4">
+                <button
+                  className="bg-bg text-white px-4 py-4 w-full rounded-sm shadow-lg"
+                  onClick={() => setIsCartOpen(true)}
+                >
+                  🛒 Cart ({cart.length})
+                </button>
+                </div>
+            )}
         </div>
     )
 }

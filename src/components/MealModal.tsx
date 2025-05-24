@@ -13,10 +13,11 @@ type Meal = {
 type MealModalProps = {
   meal: Meal | null;
   onClose: () => void;
+  onAddToCart: (meal: Meal, quantity: number) => void;
 };
 
 
-const MealModal = ({ meal, onClose }: MealModalProps) => {
+const MealModal = ({ meal, onClose, onAddToCart }: MealModalProps) => {
     const [quantity, setQuantity] = useState(1);
     const modalRef = useRef<HTMLDivElement>(null);
     const backdropRef = useRef<HTMLDivElement>(null);
@@ -93,7 +94,7 @@ const MealModal = ({ meal, onClose }: MealModalProps) => {
                     </div>
                 </div>
                 <button
-                    onClick={() => onClose()}
+                    onClick={() => onAddToCart(meal, quantity)}
                     className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-11/12 max-w-md bg-bg text-white font-semibold py-4 rounded-lg shadow-lg"
                 >
                     Confirm Order
